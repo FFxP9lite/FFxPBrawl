@@ -27,6 +27,7 @@ import { AskForBattleEndMessage } from "./packets/client/askforbattleendmessage"
 import { SetCountryMessage } from "./packets/client/setcountrymessage";
 import { UpdatePlayerMapMessage } from "./packets/client/mapmaker/updateplayermapmessage";
 import { ChangePlayerMapNameMessage } from "./packets/client/mapmaker/changeplayermapnamemessage";
+import { TeamLeftMessage } from "./packets/server/teams/teamleftmessage";
 
 export class Messaging {
   static sendOfflineMessage(id: number, payload: number[]): NativePointer {
@@ -146,6 +147,9 @@ export class Messaging {
       case 14350: {
         TeamCreateMessage.execute(TeamCreateMessage.decode(stream));
         break;
+      }
+      case 14353: { // TeamLeaveMessage
+        Messaging.sendOfflineMessage(24125, TeamLeftMessage.encode())
       }
     }
   }
