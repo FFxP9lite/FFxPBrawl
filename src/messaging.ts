@@ -58,7 +58,20 @@ export class Messaging {
     let decode = new NativeFunction(decodeOffset, "void", ["pointer"]);
     if (!doNoCopyFix) decode(message);
     Logger.debug("Message decoded succesfully");
-    messageManagerReceiveMessage(getMessageManagerInstance(), message);
+    let done = false, retries = 0, err = ""
+    while (!done && retries < 50) {
+      try {
+        messageManagerReceiveMessage(getMessageManagerInstance(), message);
+        done = true
+      } catch (e: any) {
+        Logger.debug("Failed to access, retrying...")
+        err = e
+        retries++
+        Thread.sleep(0.1)
+      }
+    }
+    if (!done)
+      Logger.error("Failed to access after 50 retries\n" + err)
     Logger.debug("Message received");
     return message;
   }
