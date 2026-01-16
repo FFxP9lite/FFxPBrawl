@@ -151,8 +151,8 @@ export function installHooks() {
           onEnter(args) {
             progress = args[1].toInt32();
             // special cases 
-            if (progress = 1) progress = 0;
-            if (progress == 99) progress = 100;
+            if (progress === 1) progress = 0;
+            if (progress === 99) progress = 100;
           },
         },
       );
