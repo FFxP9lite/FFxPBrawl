@@ -4,6 +4,7 @@ import { config } from "../../definitions.js";
 import { PlayerDisplayData } from "src/playerdisplaydata.js";
 import { Logger } from "src/utility/logger.js";
 import { XpEntry } from "src/xpentry.js";
+import { LogicMilestoneProgress } from "src/logicmilestoneprogress.js";
 
 // credits: https://github.com/risporce/BSDS/blob/v52/Classes/Packets/Server/Battle/BattleEndMessage.py
 // with small snippets from https://github.com/st3a1/PirateBrawl2.0/blob/main/PirateBrawl.Logic/Messages/Battle/BattleEndMessage.js
@@ -13,7 +14,7 @@ export class BattleEndMessage {
   static encode(data: BattleEndData): number[] {
     let stream = new ByteStream([]);
 
-    Logger.info(data.result, data.type, data.rank, data.mapID.low)
+    Logger.info(data.result, data.result2, data.rank, data.mapID.low)
 
     //var game = (data.heroes.length === 10 && data.heroes[0].team === 0) 
     //  ? 5
@@ -22,7 +23,7 @@ export class BattleEndMessage {
     //    : (data.heroes.length === 10 ? 2 : 2));
     let game;
     if (data.heroes.length === 6) {
-      game = 1 + 1 // TODO: 3v3 is crashing so pretend SD for now
+      game = 1 // TODO: 3v3 is crashing so pretend SD for now
     } else if (data.heroes.length === 10) {
       game = 2
       // TODO: Duo
@@ -40,7 +41,7 @@ export class BattleEndMessage {
     stream.writeLong(0, data.mapID.low);
     stream.writeLong(0, data.rank);
     stream.writeVInt(game); // Game mode (data.gamemode)
-    stream.writeVInt((game === 2 || game === 5) ? (data.rank !== 0 ? data.rank : data.result2) : data.result); // Result (Victory/Defeat/Draw/Rank Score) (data.rank)
+    stream.writeVInt((game === 2 || game === 5) ? (data.rank !== 0 ? data.rank : (data.result2 !== 0 ? data.result2 : data.result)) : data.result); // Result (Victory/Defeat/Draw/Rank Score) (data.rank)
     stream.writeVInt(0); // Tokens Gained (Gained Keys)
     stream.writeVInt(1000); // Trophies Result (Metascore change)
     stream.writeVInt(0); // Power Play Points Gained (Pro League Points)
@@ -78,10 +79,10 @@ export class BattleEndMessage {
     stream.writeVInt(onScreenCount);
     for (let i = 0; onScreenCount > i; i++) {
       let hero = data.heroes[i]
-      Logger.info(hero.id, hero.skinID, hero.team, hero.isPlayer, hero.name)
+      Logger.info(hero.id.high, hero.id.low, hero.skinID.high, hero.skinID.low, hero.team, hero.isPlayer, hero.name)
       stream.writeBoolean(hero.isPlayer);
       stream.writeBoolean(Boolean(hero.team));
-      stream.writeBoolean(false);
+      stream.writeBoolean(game === 1 ? hero.isPlayer : false); // Star player
 
       stream.writeVInt(1);
       stream.writeDataReference(hero.id.high, hero.id.low);
@@ -110,8 +111,14 @@ export class BattleEndMessage {
 
       stream.writeBoolean(false); // In club (todo)
 
+      stream.writeVInt(3);
+      stream.writeVInt(0);
+      stream.writeVInt(0);
       stream.writeVInt(0);
 
+      stream.writeVInt(3);
+      stream.writeVInt(0);
+      stream.writeVInt(0);
       stream.writeVInt(0);
 
       stream.writeVInt(0);
@@ -124,17 +131,15 @@ export class BattleEndMessage {
       stream.writeVInt(0);
     }
 
-    stream.writeVInt(1); // xp entry count
-    stream.writeVInt(1); // Trophies
-    stream = new XpEntry(88000, 88000).encode(stream) // TODO: Current highest
+    stream.writeVInt(0); // xp entry
 
-    stream.writeVInt(0); // milestones progress
+    stream.writeVInt(0);
 
-    stream.writeVInt(1);
-    //sub
     stream.writeVInt(0);
-    stream.writeVInt(0);
-    stream.writeVInt(0);
+
+    stream.writeVInt(2); // milestones progress
+    stream = new LogicMilestoneProgress(1, 88000, 88000).encode(stream); // Trophies
+    stream = new LogicMilestoneProgress(5, 100, 100).encode(stream);     // Unknown
 
     stream.writeDataReference(0, 1);
     stream.writeBoolean(false);
