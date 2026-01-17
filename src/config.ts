@@ -36,6 +36,7 @@ export class Config {
   china = false;
   artTest = false;
   customLoadingScreen = true;
+  writeLogsToFile = false;
   debugMenu = true;
   events: Event[] = [];
   rankedCurrent: number = 0;
@@ -125,6 +126,8 @@ export function readConfig() {
   config.artTest = json.artTest == null ? false : json.artTest;
   config.customLoadingScreen =
     json.customLoadingScreen == null ? true : json.customLoadingScreen;
+  config.writeLogsToFile = 
+    json.writeLogsToFile === null ? false : json.writeLogsToFile;
   config.debugMenu = json.debugMenu == null ? true : json.debugMenu;
   for (const [id, brawler] of Object.entries(
     json.unlockedBrawlers as Record<string, any>,
@@ -222,6 +225,7 @@ export function writeConfig(config: Config) {
   data.china = config.china;
   data.artTest = config.artTest;
   data.customLoadingScreen = config.customLoadingScreen;
+  data.writeLogsToFile = config.writeLogsToFile;
   data.debugMenu = config.debugMenu;
   data.region = config.region;
   data.supportedCreator = config.supportedCreator;

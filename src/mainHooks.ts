@@ -121,7 +121,15 @@ export function installHooks() {
         if (payload !== null) {
           let stream = new ByteStream(Array.from(new Uint8Array(payload)));
           Logger.debug("Stream dump:", payload);
-          Messaging.handleMessage(type, stream);
+          if (!config.writeLogsToFile) {
+            Messaging.handleMessage(type, stream);
+          } else {
+            try {
+              Messaging.handleMessage(type, stream);
+            } catch (err: any) {
+              Logger.error(`\n$${err.stack}`)
+            }
+          }
         }
 
         PiranhaMessage.destroyMessage(message);

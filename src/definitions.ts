@@ -3,6 +3,7 @@ import { Offsets, setupOffsets } from "./offsets.js";
 import { isAndroid } from "./platform.js";
 import { getDocumentsDirectory, getPackageName } from "./util.js";
 import { version } from "version";
+import { setupLogFile } from "./utility/logger.js";
 
 export let base = NULL;
 
@@ -72,6 +73,8 @@ export function load() {
   documentsDirectory = getDocumentsDirectory();
   configPath = documentsDirectory + "/config.json";
   config = readConfig();
+
+  if (config.writeLogsToFile) setupLogFile()
 
   createMessageByType = new NativeFunction(
     base.add(Offsets.CreateMessageByType),

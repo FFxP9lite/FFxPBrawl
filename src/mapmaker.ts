@@ -1,17 +1,7 @@
 import { isAndroid } from "./platform";
 import { getPackageName, utf8ArrayToString } from "./util";
 import { Logger } from "./utility/logger";
-
-const open = new NativeFunction(Module.getExportByName(null, "open"), "int", ["pointer", "int", "int"]);
-const write = new NativeFunction(Module.getExportByName(null, "write"), "int", ["int", "pointer", "int"]);
-const close = new NativeFunction(Module.getExportByName(null, "close"), "int", ["int"]);
-const mkdir = new NativeFunction(Module.getExportByName(null, "mkdir"), "int", ["pointer", "int"]);
-const read = new NativeFunction(Module.getExportByName(null, "read"), "int", ["int", "pointer", "int"]);
-const opendir = new NativeFunction(Module.getExportByName(null, "opendir"), "pointer", ["pointer"]);
-const readdir = new NativeFunction(Module.getExportByName(null, "readdir"), "pointer", ["pointer"]);
-const closedir = new NativeFunction(Module.getExportByName(null, "closedir"), "int", ["pointer"]);
-const unlink = new NativeFunction(Module.getExportByName(null, "unlink"), "int", ["pointer"]);
-
+import { fs } from './utility/fs'
 
 export function setupMapMaker() {
     if (!isAndroid) return;
@@ -23,8 +13,8 @@ export function setupMapMaker() {
     const mapDir = `${basePath}/mapmaker`;
 
     // mkdir base path (ignore errors if it exists)
-    mkdir(Memory.allocUtf8String(basePath), 0o755);
-    mkdir(Memory.allocUtf8String(mapDir), 0o755);
+    fs.mkdir(Memory.allocUtf8String(basePath), 0o755);
+    fs.mkdir(Memory.allocUtf8String(mapDir), 0o755);
 }
 
 export function writeMapToFile(
@@ -71,7 +61,7 @@ export function writeMapToFile(
         // 0x0C1; // O_WRONLY | O_CREAT | O_EXC
         // No overwrite (now unused)
 
-    const fd = open(
+    const fd = fs.open(
         Memory.allocUtf8String(path),
         flags,
         0o644
@@ -82,8 +72,8 @@ export function writeMapToFile(
         return;
     }
 
-    write(fd, data, len);
-    close(fd);
+    fs.write(fd, data, len);
+    fs.close(fd);
 }
 
 type PlayerMapFile = {
@@ -98,7 +88,7 @@ export function readMapFile(fileName: string): PlayerMapFile | null {
 
     const path = `/storage/emulated/0/Android/media/${pkg}/mapmaker/${fileName}`;
 
-    const fd = open(
+    const fd = fs.open(
         Memory.allocUtf8String(path),
         0x0, // O_RDONLY
         0
@@ -114,14 +104,14 @@ export function readMapFile(fileName: string): PlayerMapFile | null {
     const buf = Memory.alloc(BUF_SIZE);
 
     while (true) {
-        const n = read(fd, buf, BUF_SIZE);
+        const n = fs.read(fd, buf, BUF_SIZE);
         if (n <= 0) break;
 
         const bytes = new Uint8Array(buf.readByteArray(n) as ArrayBuffer);
         chunks.push(utf8ArrayToString(bytes));
     }
 
-    close(fd);
+    fs.close(fd);
     return JSON.parse(chunks.join(""));
 }
 
@@ -143,7 +133,7 @@ export function getMapCount(): number {
     if (!pkg) return 0;
 
     const path = `/storage/emulated/0/Android/media/${pkg}/mapmaker`;
-    const dir = opendir(Memory.allocUtf8String(path));
+    const dir = fs.opendir(Memory.allocUtf8String(path));
 
     if (dir.isNull()) {
         Logger.error("Failed to open map dir");
@@ -153,7 +143,7 @@ export function getMapCount(): number {
     let count = 0;
 
     while (true) {
-        const ent = readdir(dir);
+        const ent = fs.readdir(dir);
         if (ent.isNull()) break;
 
         const name = readDirentName(ent);
@@ -162,7 +152,7 @@ export function getMapCount(): number {
         count++;
     }
 
-    closedir(dir);
+    fs.closedir(dir);
     return count;
 }
 
@@ -172,6 +162,6 @@ export function deleteMap(id: number[]): boolean {
 
     const path = `/storage/emulated/0/Android/media/${pkg}/mapmaker/${id[0]}-${id[1]}.txt`;
 
-    const res = unlink(Memory.allocUtf8String(path));
+    const res = fs.unlink(Memory.allocUtf8String(path));
     return res === 0;
 }
