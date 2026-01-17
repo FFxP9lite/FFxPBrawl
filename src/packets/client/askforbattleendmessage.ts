@@ -6,9 +6,9 @@ import { BattleEndMessage } from "../server/battleendmessage.js";
 
 export class AskForBattleEndMessage {
   static decode(stream: ByteStream): BattleEndData {
-    let gamemode = stream.readVInt();
-    let result = stream.readVInt();
-    let rank = stream.readVInt();
+    let result = stream.readVInt(); // Result (rank, if not applicable then 1)
+    let result2 = stream.readVInt();   // BattleEnd type? (0: SD or 1: team - rank for sd limbo)
+    let rank = stream.readVInt();   // Win Loss / Rank
     let mapID = stream.readDataReference();
     let heroes: Hero[] = [];
     let heroCount = stream.readVInt();
@@ -24,7 +24,7 @@ export class AskForBattleEndMessage {
       );
     }
 
-    return new BattleEndData(gamemode, result, rank, mapID, heroes);
+    return new BattleEndData(result, result2, rank, mapID, heroes);
   }
 
   static execute(data: BattleEndData): void {
