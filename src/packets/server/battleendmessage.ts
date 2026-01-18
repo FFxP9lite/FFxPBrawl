@@ -21,22 +21,23 @@ export class BattleEndMessage {
     //  : (data.heroes.length === 6
     //    ? 1
     //    : (data.heroes.length === 10 ? 2 : 2));
-    let game;
-    if (data.heroes.length === 6) {
-      game = 1 // TODO: 3v3 is crashing so pretend SD for now
-    } else if (data.heroes.length === 10) {
+    let game, onScreenCount;
+    if (data.heroes.length === 6 || data.heroes.length === 4         // 3v3, 2v2
+      || (data.heroes.length === 10 && data.heroes[4].team === 1)) { // 5v5
+      game = 1
+      onScreenCount = data.heroes.length
+    } else if (data.heroes.length === 10 && data.heroes[1].team === 1) {
       game = 2
-      // TODO: Duo
+      onScreenCount = 1
+    } else if (data.heroes.length === 10 && data.heroes[2].team === 1) {
+      game = 5
+      onScreenCount = 2
     } else {
+      Logger.warn("Couldn't determine game type, falling back to solo showdown")
       game = 2
-      // Duo 5
-      // 2v2 ?
-      // 5v5 ?
+      onScreenCount = 1
       // Trios ?
-      // Duels ?
     }
-
-    const onScreenCount = game === 2 ? 1 : data.heroes.length
 
     stream.writeLong(0, data.mapID.low);
     stream.writeLong(0, data.rank);
@@ -84,22 +85,21 @@ export class BattleEndMessage {
       stream.writeBoolean(Boolean(hero.team));
       stream.writeBoolean(game === 1 ? hero.isPlayer : false); // Star player
 
-      stream.writeVInt(1);
+      stream.writeByte(1);
       stream.writeDataReference(hero.id.high, hero.id.low);
 
-      stream.writeVInt(1);
+      stream.writeByte(1);
       stream.writeDataReference(hero.skinID.high, hero.skinID.low)
 
-      stream.writeVInt(1);
+      stream.writeByte(1);
       stream.writeVInt(hero.isPlayer ? 1000 : 0); // TODO: Real trophies
 
-      stream.writeVInt(1);
+      stream.writeByte(1);
       stream.writeVInt(hero.isPlayer ? 11 : 1); // TODO: Real power level
 
-      stream.writeVInt(1);
-      stream.writeVInt(0);
+      stream.writeByte(0);
   
-      stream.writeVInt(0);
+      stream.writeVInt(1);
   
       stream.writeBoolean(hero.isPlayer);
       if (hero.isPlayer) {
@@ -111,20 +111,14 @@ export class BattleEndMessage {
 
       stream.writeBoolean(false); // In club (todo)
 
-      stream.writeVInt(3);
-      stream.writeVInt(0);
-      stream.writeVInt(0);
-      stream.writeVInt(0);
+      stream.writeByte(0);
 
-      stream.writeVInt(3);
-      stream.writeVInt(0);
-      stream.writeVInt(0);
-      stream.writeVInt(0);
+      stream.writeByte(0);
 
-      stream.writeVInt(0);
-      stream.writeVInt(0);
-      stream.writeInt(0);
-      stream.writeInt(0);
+      stream.writeShort(1); // Kills
+      stream.writeShort(2); // Deaths
+      stream.writeInt(4);   // Damage
+      stream.writeInt(3);   // Healing
       stream.writeDataReference(0, 1);
       stream.writeVInt(0);
       stream.writeVInt(0);
@@ -164,10 +158,15 @@ export class BattleEndMessage {
     stream.writeVInt(0);
     stream.writeVInt(0);
     stream.writeVInt(0);
+
+    stream.writeVInt(0);
+
+    stream.writeVInt(0);
+    stream.writeVInt(0);
+    stream.writeBoolean(true);
     stream.writeVInt(0);
     stream.writeVInt(0);
     stream.writeVInt(0);
-    stream.writeBoolean(false);
 
     return stream.payload;
   }
