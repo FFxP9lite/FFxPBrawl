@@ -82,7 +82,7 @@ export class BattleEndMessage {
       let hero = data.heroes[i]
       Logger.info(hero.id.high, hero.id.low, hero.skinID.high, hero.skinID.low, hero.team, hero.isPlayer, hero.name)
       stream.writeBoolean(hero.isPlayer);
-      stream.writeBoolean(Boolean(hero.team));
+      stream.writeBoolean(hero.team !== data.heroes[0].team);
       stream.writeBoolean(game === 1 ? hero.isPlayer : false); // Star player
 
       stream.writeByte(1);
