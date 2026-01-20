@@ -1,10 +1,10 @@
-import { ByteStream } from "../../bytestream.js";
-import { Messaging } from "../../messaging.js";
-import { config } from "../../definitions.js";
-import { writeConfig } from "../../config.js";
-import { Logger } from "../../utility/logger.js";
-import { Long } from "../../long.js";
-import { SetCountryResponseMessage } from "../server/setcountryresponsemessage.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { Messaging } from "../../Messaging.js";
+import { config } from "../../Definitions.js";
+import { writeConfig } from "../../Config.js";
+import { Logger } from "../../utility/Logger.js";
+import { Long } from "../../Long.js";
+import { SetCountryResponseMessage } from "../server/SetCountryResponseMessage.js";
 
 export class SetCountryMessage {
   static decode(stream: ByteStream): Long {

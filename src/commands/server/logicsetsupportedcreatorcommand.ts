@@ -1,6 +1,6 @@
-import { ByteStream } from "../../bytestream.js";
-import { LogicCommand } from "../../logiccommand.js";
-import { config } from "../../definitions.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { LogicCommand } from "../../misc/LogicCommand.js";
+import { config } from "../../Definitions.js";
 
 export class LogicSetSupportedCreatorCommand {
   static encode(): number[] {

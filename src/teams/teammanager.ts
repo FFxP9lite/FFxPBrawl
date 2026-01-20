@@ -1,9 +1,8 @@
-import { ByteStream } from "../bytestream";
-import { player } from "../definitions";
-import { Long } from "../long";
-import { Messaging } from "../messaging";
-import { TeamEntry } from "./teamentry";
-import { TeamMember } from "./teammember";
+import { ByteStream } from "../misc/ByteStream";
+import { Long } from "../Long";
+import { Messaging } from "../Messaging";
+import { TeamEntry } from "./TeamEntry";
+import { TeamMember } from "./TeamMember";
 
 export class TeamManager {
   static createTeam() {

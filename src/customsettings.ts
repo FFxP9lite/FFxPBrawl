@@ -9,10 +9,10 @@ import {
   getY,
   setXY,
   stringCtor,
-} from "./definitions";
-import { Offsets } from "./offsets";
-import { Logger } from "./utility/logger";
-import { ButtonHelper } from "./utility/buttonhelper";
+} from "./Definitions";
+import { Offsets } from "./Offsets";
+import { Logger } from "./utility/Logger";
+import { ButtonHelper } from "./utility/ButtonHelper";
 import { decodeString } from "./util";
 
 let editControlsPos: any;

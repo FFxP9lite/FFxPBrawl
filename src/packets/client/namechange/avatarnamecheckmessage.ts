@@ -1,6 +1,6 @@
-import { ByteStream } from "../../../bytestream.js";
-import { Messaging } from "../../../messaging.js";
-import { AvatarNameCheckResponseMessage } from "../../server/namechange/avatarnamecheckresponsemessage.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { Messaging } from "../../../Messaging.js";
+import { AvatarNameCheckResponseMessage } from "../../server/namechange/AvatarNameCheckResponseMessage.js";
 
 export class AvatarNameCheckRequestMessage {
   static decode(stream: ByteStream): string {

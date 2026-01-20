@@ -1,4 +1,4 @@
-import { ByteStream } from "./bytestream";
+import { ByteStream } from "./ByteStream";
 
 export class LogicMilestoneProgress {
   id = 0;

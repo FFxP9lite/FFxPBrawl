@@ -11,7 +11,7 @@
     "baseUrl": ".",
     "paths": { // so ide dont complain
       "version": ["src/version/v59/android/arm64/version.ts"],
-      "OwnHomeDataMessage": ["src/packets/server/ownhomedatamessage/v59/ownhomedatamessage.ts"]
+      "OwnHomeDataMessage": ["src/packets/server/ownhomedatamessage/v59/OwnHomeDataMessage.ts"]
     }
   },
   "exclude": ["script.js"]

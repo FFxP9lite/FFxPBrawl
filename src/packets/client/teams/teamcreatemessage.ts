@@ -1,5 +1,5 @@
-import { ByteStream } from "../../../bytestream.js";
-import { TeamManager } from "../../../teams/teammanager.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { TeamManager } from "../../../teams/TeamManager.js";
 
 export class TeamCreateMessage {
   static decode(stream: ByteStream): any {

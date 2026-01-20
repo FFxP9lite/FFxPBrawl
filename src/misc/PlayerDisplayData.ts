@@ -1,4 +1,4 @@
-import { ByteStream } from "./bytestream";
+import { ByteStream } from "./ByteStream";
 import { version } from "version";
 
 export class PlayerDisplayData {

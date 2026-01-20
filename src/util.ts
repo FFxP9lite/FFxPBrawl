@@ -1,4 +1,4 @@
-import { Brawler } from "./brawler.js";
+import { Brawler } from "./misc/Brawler.js";
 import {
   base,
   getString,
@@ -6,8 +6,8 @@ import {
   mkdir,
   pkgName,
   stringCtor,
-} from "./definitions.js";
-import { Offsets } from "./offsets.js";
+} from "./Definitions.js";
+import { Offsets } from "./Offsets.js";
 import { isAndroid } from "./platform.js";
 
 const read = new NativeFunction(

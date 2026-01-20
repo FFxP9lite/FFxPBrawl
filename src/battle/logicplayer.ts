@@ -1,6 +1,6 @@
-import { ByteStream } from "../bytestream.js";
-import { config } from "../definitions.js";
-import { LogicPlayerBattleIntroDetails } from "./logicplayerbattleintrodetails.js";
+import { ByteStream } from "../misc/ByteStream.js";
+import { config } from "../Definitions.js";
+import { LogicPlayerBattleIntroDetails } from "./LogicPlayerBattleIntroDetails.js";
 
 export class LogicPlayer {
   constructor() {}

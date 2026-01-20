@@ -1,6 +1,6 @@
-import { PlayerDisplayData } from "../playerdisplaydata.js";
-import { ByteStream } from "../bytestream.js";
-import { config } from "../definitions.js";
+import { PlayerDisplayData } from "../misc/PlayerDisplayData.js";
+import { ByteStream } from "../misc/ByteStream.js";
+import { config } from "../Definitions.js";
 
 export class TeamMember {
   isOwner = true;

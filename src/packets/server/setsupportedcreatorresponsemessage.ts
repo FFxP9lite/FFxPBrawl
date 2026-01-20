@@ -1,5 +1,5 @@
-import { config } from "../../definitions.js";
-import { ByteStream } from "../../bytestream.js";
+import { config } from "../../Definitions.js";
+import { ByteStream } from "../../misc/ByteStream.js";
 
 export class SetSupportedCreatorResponseMessage {
   static encode(): number[] {

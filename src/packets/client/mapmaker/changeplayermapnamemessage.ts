@@ -1,8 +1,8 @@
-import { ByteStream } from "src/bytestream";
-import { Long } from "src/long";
+import { ByteStream } from "src/misc/ByteStream";
+import { Long } from "src/Long";
 import { writeMapToFile } from "src/mapmaker";
-import { Messaging } from "src/messaging";
-import { ChangePlayerMapNameResponseMessage } from "src/packets/server/mapmaker/changeplayermapnameresponsemessage";
+import { Messaging } from "src/Messaging";
+import { ChangePlayerMapNameResponseMessage } from "src/packets/server/mapmaker/ChangePlayerMapNameResponseMessage";
 
 export class ChangePlayerMapNameMessage {
     static decode(stream: ByteStream): Long {

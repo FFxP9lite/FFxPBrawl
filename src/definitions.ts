@@ -1,9 +1,9 @@
-import { Config, readConfig } from "./config.js";
-import { Offsets, setupOffsets } from "./offsets.js";
+import { Config, readConfig } from "./Config.js";
+import { Offsets, setupOffsets } from "./Offsets.js";
 import { isAndroid } from "./platform.js";
 import { getDocumentsDirectory, getPackageName } from "./util.js";
 import { version } from "version";
-import { setupLogFile } from "./utility/logger.js";
+import { setupLogFile } from "./utility/Logger.js";
 
 export let base = NULL;
 

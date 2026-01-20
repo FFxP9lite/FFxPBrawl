@@ -1,7 +1,7 @@
-import { Brawler } from "./brawler.js";
-import { configPath, libc } from "./definitions.js";
-import { Event } from "./event.js";
-import { Long } from "./long.js";
+import { Brawler } from "./misc/Brawler.js";
+import { configPath, libc } from "./Definitions.js";
+import { Event } from "./Event.js";
+import { Long } from "./Long.js";
 
 export class Config {
   id: Long = new Long(0, 1);

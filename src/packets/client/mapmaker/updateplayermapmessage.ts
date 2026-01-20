@@ -1,10 +1,10 @@
-import { ByteStream } from "../../../bytestream.js";
-import { Messaging } from "../../../messaging.js";
-import { Long } from "../../../long.js";
-import { UpdatePlayerMapResponseMessage } from "../../server/mapmaker/updateplayermapresponsemessage.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { Messaging } from "../../../Messaging.js";
+import { Long } from "../../../Long.js";
+import { UpdatePlayerMapResponseMessage } from "../../server/mapmaker/UpdatePlayerMapResponseMessage.js";
 import { utf8ArrayToString } from "src/util.js";
 import { writeMapToFile } from "src/mapmaker.js";
-import { Logger } from "src/utility/logger.js";
+import { Logger } from "src/utility/Logger.js";
 import { zlib } from "src/utility/zlib.js";
 
 export class UpdatePlayerMapMessage {

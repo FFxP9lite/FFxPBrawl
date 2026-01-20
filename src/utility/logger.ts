@@ -1,8 +1,8 @@
 // Parts of this code was taken from NBS v44 and were AI generated
 
 import { getPackageName } from "src/util";
-import { config } from "../definitions";
-import { fs } from '../utility/fs';
+import { config } from "../Definitions";
+import { fs } from './fs';
 
 function getTimestamp(): string {
   const d = new Date();

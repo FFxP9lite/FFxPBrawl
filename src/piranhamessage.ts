@@ -1,5 +1,5 @@
-import { base } from "./definitions.js";
-import { Offsets } from "./offsets.js";
+import { base } from "./Definitions.js";
+import { Offsets } from "./Offsets.js";
 
 export class PiranhaMessage {
     static getMessageType(message: NativePointer): number {

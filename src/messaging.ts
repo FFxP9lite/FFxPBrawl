@@ -1,34 +1,36 @@
-import { Offsets } from "./offsets";
+import { Offsets } from "./Offsets";
 import {
   base,
   config,
   createMessageByType,
   messageManagerReceiveMessage,
   operator_new,
-} from "./definitions";
-import { PiranhaMessage } from "./piranhamessage";
+} from "./Definitions";
+import { PiranhaMessage } from "./PiranhaMessage";
 import { getMessageManagerInstance } from "./util";
-import { TeamManager } from "./teams/teammanager";
-import { OwnHomeDataMessage } from "OwnHomeDataMessage";
-import { writeConfig } from "./config";
-import { PlayerProfileMessage } from "./packets/server/playerprofilemessage";
-import { AvatarNameCheckRequestMessage } from "./packets/client/namechange/avatarnamecheckmessage";
-import { ByteStream } from "./bytestream";
-import { ChangeAvatarNameMessage } from "./packets/client/namechange/changeavatarnamemessage";
-import { EndClientTurnMessage } from "./packets/client/endclientturnmessage";
-import { SetSupportedCreatorMessage } from "./packets/client/setsupportedcreatormessage";
-import { CreatePlayerMapMessage } from "./packets/client/mapmaker/createplayermapmessage";
-import { PlayerMapsMessage } from "./packets/server/mapmaker/playermapsmessage";
-import { DeletePlayerMapMessage } from "./packets/client/mapmaker/deleteplayermapmessage";
-import { TeamCreateMessage } from "./packets/client/teams/teamcreatemessage";
-import { Logger } from "./utility/logger";
-import { LoginOkMessage } from "./packets/server/loginokmessage";
-import { AskForBattleEndMessage } from "./packets/client/askforbattleendmessage";
-import { SetCountryMessage } from "./packets/client/setcountrymessage";
-import { UpdatePlayerMapMessage } from "./packets/client/mapmaker/updateplayermapmessage";
-import { ChangePlayerMapNameMessage } from "./packets/client/mapmaker/changeplayermapnamemessage";
+import { TeamManager } from "./teams/TeamManager";
+import { OwnHomeDataMessage } from "src/packets/server/ownhomedatamessage/v59/OwnHomeDataMessage";
+import { writeConfig } from "./Config";
+import { PlayerProfileMessage } from "./packets/server/PlayerProfileMessage";
+import { AvatarNameCheckRequestMessage } from "./packets/client/namechange/AvatarNameCheckMessage";
+import { ByteStream } from "./misc/ByteStream";
+import { ChangeAvatarNameMessage } from "./packets/client/namechange/ChangeAvatarNameMessage";
+import { EndClientTurnMessage } from "./packets/client/EndClientTurnMessage";
+import { SetSupportedCreatorMessage } from "./packets/client/SetSupportedCreatorMessage";
+import { CreatePlayerMapMessage } from "./packets/client/mapmaker/CreatePlayerMapMessage";
+import { PlayerMapsMessage } from "./packets/server/mapmaker/PlayerMapsMessage";
+import { DeletePlayerMapMessage } from "./packets/client/mapmaker/DeletePlayerMapMessage";
+import { TeamCreateMessage } from "./packets/client/teams/TeamCreateMessage";
+import { Logger } from "./utility/Logger";
+import { LoginOkMessage } from "./packets/server/LoginOkMessage";
+import { AskForBattleEndMessage } from "./packets/client/AskForBattleEndMessage";
+import { SetCountryMessage } from "./packets/client/SetCountryMessage";
+import { UpdatePlayerMapMessage } from "./packets/client/mapmaker/UpdatePlayerMapMessage";
+import { ChangePlayerMapNameMessage } from "./packets/client/mapmaker/ChangePlayerMapNameMessage";
 import { TeamLeftMessage } from "./packets/server/teams/teamleftmessage";
-import { TeamSetLocationMessage } from "./packets/client/teams/teamsetlocationmessage";
+import { TeamSetLocationMessage } from "./packets/client/teams/TeamSetLocationMessage";
+import { TeamSetMemberReadyMessage } from "./packets/client/teams/TeamSetMemberReadyMessage";
+import { TeamSetPlayerMapMessage } from "./packets/client/teams/TeamSetPlayerMapMessage";
 
 export class Messaging {
   static sendOfflineMessage(id: number, payload: number[]): NativePointer {

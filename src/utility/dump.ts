@@ -1,10 +1,10 @@
 // This is a simple tool to dump structure
 
-import { base } from "../definitions";
-import { GlobalID } from "../globalid";
-import { Offsets } from "../offsets";
+import { base } from "../Definitions";
+import { GlobalID } from "../GlobalID";
+import { Offsets } from "../Offsets";
 import { decodeString } from "../util";
-import { Logger } from "./logger";
+import { Logger } from "./Logger";
 
 export class Dumper {
   // hooks

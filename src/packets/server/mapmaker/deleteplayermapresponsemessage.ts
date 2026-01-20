@@ -1,6 +1,6 @@
 import { deleteMap } from "src/mapmaker.js";
-import { ByteStream } from "../../../bytestream.js";
-import { Long } from "../../../long.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { Long } from "../../../Long.js";
 
 export class DeletePlayerMapResponseMessage {
   static encode(id: Long): number[] {

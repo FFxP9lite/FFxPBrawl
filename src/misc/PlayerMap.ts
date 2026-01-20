@@ -1,5 +1,5 @@
-import { ByteStream } from "./bytestream";
-import { getMapCount, readMapFile, writeMapToFile } from "./mapmaker";
+import { ByteStream } from "./ByteStream";
+import { getMapCount, readMapFile, writeMapToFile } from "../mapmaker";
 
 export class PlayerMap {
   id: number[] = [0, getMapCount() + 1];

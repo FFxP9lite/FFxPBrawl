@@ -1,6 +1,6 @@
-import { ByteStream } from "../../bytestream.js";
-import { CommandHandler } from "../../commandhandler.js";
-import { Logger } from "../../utility/logger.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { CommandHandler } from "../../misc/CommandHandler.js";
+import { Logger } from "../../utility/Logger.js";
 
 export class EndClientTurnMessage {
   static decode(stream: ByteStream) {

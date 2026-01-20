@@ -1,5 +1,5 @@
-import { ByteStream } from "src/bytestream";
-import { Long } from "src/long";
+import { ByteStream } from "src/misc/ByteStream";
+import { Long } from "src/Long";
 
 export class ChangePlayerMapNameResponseMessage {
     static encode(id: Long): number[] {

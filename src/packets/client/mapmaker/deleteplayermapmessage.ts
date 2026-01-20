@@ -1,7 +1,7 @@
-import { ByteStream } from "../../../bytestream.js";
-import { Messaging } from "../../../messaging.js";
-import { Long } from "../../../long.js";
-import { DeletePlayerMapResponseMessage } from "../../server/mapmaker/deleteplayermapresponsemessage.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { Messaging } from "../../../Messaging.js";
+import { Long } from "../../../Long.js";
+import { DeletePlayerMapResponseMessage } from "../../server/mapmaker/DeletePlayerMapResponseMessage.js";
 
 export class DeletePlayerMapMessage {
   static decode(stream: ByteStream): Long {

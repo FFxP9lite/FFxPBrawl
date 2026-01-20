@@ -1,5 +1,5 @@
-import { ByteStream } from "../../../bytestream.js";
-import { Long } from "../../../long.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { Long } from "../../../Long.js";
 
 export class UpdatePlayerMapResponseMessage {
   static encode(id: Long): number[] {

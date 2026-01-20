@@ -1,7 +1,7 @@
-import { ByteStream } from "../../../bytestream.js";
-import { Messaging } from "../../../messaging.js";
-import { PlayerMap } from "../../../playermap.js";
-import { CreatePlayerMapResponseMessage } from "../../server/mapmaker/createplayermapresponsemessage.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { Messaging } from "../../../Messaging.js";
+import { PlayerMap } from "../../../misc/PlayerMap.js";
+import { CreatePlayerMapResponseMessage } from "../../server/mapmaker/CreatePlayerMapResponseMessage.js";
 import { getMapCount } from "src/mapmaker.js";
 
 export class CreatePlayerMapMessage {

@@ -1,8 +1,8 @@
-import { base, config, load, setBase } from "./definitions.js";
+import { base, config, load, setBase } from "./Definitions.js";
 import { installHooks } from "./mainHooks.js";
 import { isAndroid } from "./platform.js";
-import { Logger } from "./utility/logger.js";
-import { setupCustomSettings } from "./customsettings.js";
+import { Logger } from "./utility/Logger.js";
+import { setupCustomSettings } from "./customSettings.js";
 import { setupMapMaker } from "./mapmaker.js";
 
 let library = isAndroid ? "libg.so" : "laser";

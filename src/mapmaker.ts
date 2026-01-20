@@ -1,6 +1,6 @@
 import { isAndroid } from "./platform";
 import { getPackageName, utf8ArrayToString } from "./util";
-import { Logger } from "./utility/logger";
+import { Logger } from "./utility/Logger";
 import { fs } from './utility/fs'
 
 export function setupMapMaker() {

@@ -1,7 +1,7 @@
 import { getMapCount, readMapFile } from "src/mapmaker.js";
-import { ByteStream } from "../../../bytestream.js";
-import { PlayerMap } from "../../../playermap.js";
-import { Logger } from "src/utility/logger.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { PlayerMap } from "../../../misc/PlayerMap.js";
+import { Logger } from "src/utility/Logger.js";
 import { zlib } from "src/utility/zlib.js";
 
 export class PlayerMapsMessage {

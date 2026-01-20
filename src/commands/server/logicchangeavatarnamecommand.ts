@@ -1,6 +1,6 @@
-import { ByteStream } from "../../bytestream.js";
-import { config } from "../../definitions.js";
-import { LogicCommand } from "../../logiccommand.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { config } from "../../Definitions.js";
+import { LogicCommand } from "../../misc/LogicCommand.js";
 
 export class LogicChangeAvatarNameCommand {
   static encode(): number[] {

@@ -1,8 +1,8 @@
-import { ByteStream } from "../../bytestream.js";
-import { writeConfig } from "../../config.js";
-import { config } from "../../definitions.js";
-import { LogicCommand } from "../../logiccommand.js";
-import { Logger } from "../../utility/logger.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { writeConfig } from "../../Config.js";
+import { config } from "../../Definitions.js";
+import { LogicCommand } from "../../misc/LogicCommand.js";
+import { Logger } from "../../utility/Logger.js";
 
 export class LogicSelectSkinCommand {
   static decode(stream: ByteStream): any {

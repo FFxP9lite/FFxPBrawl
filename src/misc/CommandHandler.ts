@@ -1,10 +1,10 @@
-import { ByteStream } from "./bytestream.js";
-import { LogicSelectCharacterCommand } from "./commands/client/logicselectcharactercommand.js";
-import { LogicSelectFavouriteHeroCommand } from "./commands/client/logicselectfavouriteherocommand.js";
-import { LogicSelectSkinCommand } from "./commands/client/logicselectskincommand.js";
-import { LogicSetPlayerNameColorCommand } from "./commands/client/logicsetplayernamecolorcommand.js";
-import { LogicSetPlayerThumbnailCommand } from "./commands/client/logicsetplayerthumbnailcommand.js";
-import { Logger } from "./utility/logger.js";
+import { ByteStream } from "./ByteStream.js";
+import { LogicSelectCharacterCommand } from "../commands/client/LogicSelectCharacterCommand.js";
+import { LogicSelectFavouriteHeroCommand } from "../commands/client/LogicSelectFavouriteHeroCommand.js";
+import { LogicSelectSkinCommand } from "../commands/client/LogicSelectSkinCommand.js";
+import { LogicSetPlayerNameColorCommand } from "../commands/client/LogicSetPlayerNameColorCommand.js";
+import { LogicSetPlayerThumbnailCommand } from "../commands/client/LogicSetPlayerThumbnailCommand.js";
+import { Logger } from "../utility/Logger.js";
 
 export class CommandHandler {
   static handleCommand(id: number, stream: ByteStream): ByteStream {

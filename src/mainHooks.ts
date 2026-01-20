@@ -1,5 +1,5 @@
-import { Offsets } from "./offsets.js";
-import { PiranhaMessage } from "./piranhamessage.js";
+import { Offsets } from "./Offsets.js";
+import { PiranhaMessage } from "./PiranhaMessage.js";
 import {
   base,
   botNames,
@@ -9,17 +9,17 @@ import {
   setBotNames,
   setTextAndScaleIfNecessary,
   stringCtor,
-} from "./definitions.js";
-import { Messaging } from "./messaging.js";
+} from "./Definitions.js";
+import { Messaging } from "./Messaging.js";
 import {
   backtrace,
   createStringObject,
   decodeString,
   getBotNames,
 } from "./util.js";
-import { ByteStream } from "./bytestream.js";
-import { Logger } from "./utility/logger.js";
-import { DebugMenu } from "./debugmenu/debugmenu.js";
+import { ByteStream } from "./misc/ByteStream.js";
+import { Logger } from "./utility/Logger.js";
+import { DebugMenu } from "./debugmenu/DebugMenu.js";
 import { version } from "version";
 
 let progress: number;

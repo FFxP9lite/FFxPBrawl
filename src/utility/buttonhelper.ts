@@ -1,4 +1,4 @@
-import { Offsets } from "../offsets";
+import { Offsets } from "../Offsets";
 import {
   addChild,
   autoAdjustText,
@@ -16,9 +16,9 @@ import {
   setVerticallyCentered,
   setWidth,
   setXY,
-} from "../definitions.js";
+} from "../Definitions.js";
 import { createStringObject } from "../util.js";
-import { Logger } from "./logger";
+import { Logger } from "./Logger";
 
 export class ButtonHelper {
   static hideButton(displayObject: NativePointer) {

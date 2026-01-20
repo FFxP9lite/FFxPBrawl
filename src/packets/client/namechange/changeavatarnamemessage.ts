@@ -1,9 +1,9 @@
-import { ByteStream } from "../../../bytestream.js";
-import { Messaging } from "../../../messaging.js";
-import { LogicChangeAvatarNameCommand } from "../../../commands/server/logicchangeavatarnamecommand.js";
-import { config, player } from "../../../definitions.js";
-import { writeConfig } from "../../../config.js";
-import { Logger } from "../../../utility/logger.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
+import { Messaging } from "../../../Messaging.js";
+import { LogicChangeAvatarNameCommand } from "../../../commands/server/LogicChangeAvatarNameCommand.js";
+import { config } from "../../../Definitions.js";
+import { writeConfig } from "../../../Config.js";
+import { Logger } from "../../../utility/Logger.js";
 
 export class ChangeAvatarNameMessage {
   static decode(stream: ByteStream): string {

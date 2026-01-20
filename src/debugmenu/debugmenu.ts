@@ -1,6 +1,6 @@
-import { ButtonHandler, getHeight, getWidth, setXY } from "../definitions";
-import { Logger } from "../utility/logger";
-import { ButtonHelper } from "../utility/buttonhelper";
+import { ButtonHandler, getHeight, getWidth, setXY } from "../Definitions";
+import { Logger } from "../utility/Logger";
+import { ButtonHelper } from "../utility/ButtonHelper";
 
 export class DebugMenu {
   guiContainer: NativePointer;

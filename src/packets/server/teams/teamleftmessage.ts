@@ -1,4 +1,4 @@
-import { ByteStream } from "src/bytestream";
+import { ByteStream } from "src/misc/ByteStream";
 
 export class TeamLeftMessage {
     static encode(): number[] {

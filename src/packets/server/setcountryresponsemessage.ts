@@ -1,6 +1,6 @@
-import { config, player } from "../../definitions.js";
-import { ByteStream } from "../../bytestream.js";
-import { Long } from "src/long.js";
+import { config } from "../../Definitions.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { Long } from "src/Long.js";
 
 export class SetCountryResponseMessage {
   static encode(country: Long): number[] {

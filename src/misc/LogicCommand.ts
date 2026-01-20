@@ -1,4 +1,4 @@
-import { ByteStream } from "./bytestream.js";
+import { ByteStream } from "./ByteStream.js";
 
 export class LogicCommand {
   static encode(): number[] {

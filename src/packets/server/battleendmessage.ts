@@ -1,10 +1,10 @@
-import { ByteStream } from "../../bytestream.js";
-import { BattleEndData } from "../../battleenddata.js";
-import { config } from "../../definitions.js";
-import { PlayerDisplayData } from "src/playerdisplaydata.js";
-import { Logger } from "src/utility/logger.js";
-import { XpEntry } from "src/xpentry.js";
-import { LogicMilestoneProgress } from "src/logicmilestoneprogress.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { BattleEndData } from "../../misc/BattleEndData.js";
+import { config } from "../../Definitions.js";
+import { PlayerDisplayData } from "src/misc/PlayerDisplayData.js";
+import { Logger } from "src/utility/Logger.js";
+import { XpEntry } from "src/misc/XpEntry.js";
+import { LogicMilestoneProgress } from "src/misc/LogicMilestoneProgress.js";
 
 // credits: https://github.com/risporce/BSDS/blob/v52/Classes/Packets/Server/Battle/BattleEndMessage.py
 // with small snippets from https://github.com/st3a1/PirateBrawl2.0/blob/main/PirateBrawl.Logic/Messages/Battle/BattleEndMessage.js

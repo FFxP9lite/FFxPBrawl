@@ -1,4 +1,4 @@
-import { ByteStream } from "../../../bytestream.js";
+import { ByteStream } from "../../../misc/ByteStream.js";
 
 export class AvatarNameCheckResponseMessage {
   static encode(name: string): number[] {

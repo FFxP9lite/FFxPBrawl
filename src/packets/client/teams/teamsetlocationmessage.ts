@@ -1,8 +1,8 @@
-import { ByteStream } from "src/bytestream";
-import { Long } from "src/long";
-import { Messaging } from "src/messaging";
-import { TeamEntry } from "src/teams/teamentry";
-import { TeamMember } from "src/teams/teammember";
+import { ByteStream } from "src/misc/ByteStream";
+import { Long } from "src/Long";
+import { Messaging } from "src/Messaging";
+import { TeamEntry } from "src/teams/TeamEntry";
+import { TeamMember } from "src/teams/TeamMember";
 
 export class TeamSetLocationMessage {
     static decode(stream: ByteStream) {

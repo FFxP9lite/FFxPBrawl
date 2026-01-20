@@ -1,8 +1,8 @@
-import { ByteStream } from "../../bytestream.js";
-import { Hero } from "../../hero.js";
-import { BattleEndData } from "../../battleenddata.js";
-import { Messaging } from "../../messaging.js";
-import { BattleEndMessage } from "../server/battleendmessage.js";
+import { ByteStream } from "../../misc/ByteStream.js";
+import { Hero } from "../../misc/Hero.js";
+import { BattleEndData } from "../../misc/BattleEndData.js";
+import { Messaging } from "../../Messaging.js";
+import { BattleEndMessage } from "../server/BattleEndMessage.js";
 
 export class AskForBattleEndMessage {
   static decode(stream: ByteStream): BattleEndData {
