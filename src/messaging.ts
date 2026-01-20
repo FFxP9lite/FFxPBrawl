@@ -32,6 +32,7 @@ import { TeamLeftMessage } from "./packets/server/teams/teamleftmessage";
 export class Messaging {
   static sendOfflineMessage(id: number, payload: number[]): NativePointer {
     let version = id == 20104 ? 1 : 0;
+    let useOperator = (id === 23456 || id === 12103)
     let doNoCopyFix = (id === 23456) // TODO: Very jank
     const factory = Memory.alloc(512);
     factory.writePointer(base.add(Offsets.LogicLaserMessageFactory));
@@ -42,7 +43,11 @@ export class Messaging {
     );
     payloadLength.writeS32(payload.length);
     if (payload.length > 0) {
-      let payloadPtr = operator_new(payload.length).writeByteArray(payload);
+      let payloadPtr;
+      if (useOperator)
+        payloadPtr = operator_new(payload.length).writeByteArray(payload);
+      else
+        payloadPtr = Memory.alloc(payload.length).writeByteArray(payload);
       const bytestream = PiranhaMessage.getByteStream(message);
       bytestream.add(Offsets.PayloadPtr).writePointer(payloadPtr);        // buffer ptr
       if (doNoCopyFix) {
