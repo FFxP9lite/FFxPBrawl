@@ -28,6 +28,7 @@ import { SetCountryMessage } from "./packets/client/setcountrymessage";
 import { UpdatePlayerMapMessage } from "./packets/client/mapmaker/updateplayermapmessage";
 import { ChangePlayerMapNameMessage } from "./packets/client/mapmaker/changeplayermapnamemessage";
 import { TeamLeftMessage } from "./packets/server/teams/teamleftmessage";
+import { TeamSetLocationMessage } from "./packets/client/teams/teamsetlocationmessage";
 
 export class Messaging {
   static sendOfflineMessage(id: number, payload: number[]): NativePointer {
@@ -149,12 +150,23 @@ export class Messaging {
         SetCountryMessage.execute(SetCountryMessage.decode(stream));
         break;
       }
+      case 12541: {
+        TeamManager.createTeam()
+        break
+      }
       case 14350: {
+        Logger.verbose('"Unused" TeamCreateMessage is used')
         TeamCreateMessage.execute(TeamCreateMessage.decode(stream));
         break;
       }
       case 14353: { // TeamLeaveMessage
         Messaging.sendOfflineMessage(24125, TeamLeftMessage.encode())
+        break
+      }
+      case 14363: {
+        TeamSetLocationMessage.execute(TeamSetLocationMessage.decode(stream))
+        break
+      }
       }
     }
   }

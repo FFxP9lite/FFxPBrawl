@@ -24,7 +24,7 @@ export class TeamEntry {
     for (let i = 0; i < 3; i++) {
       stream.writeVInt(0);
     }
-    stream.writeDataReference(15, 8);
+    stream.writeDataReference(15, this.locationID);
     stream.writeBoolean(false); // battle player map
     stream.writeVInt(this.teamMembers.length);
     stream = this.teamMembers.reduce((prev, x) => {
