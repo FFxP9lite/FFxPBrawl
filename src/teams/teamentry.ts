@@ -1,16 +1,51 @@
-import { TeamMember } from "./teammember.js";
-import { Long } from "../long.js";
-import { ByteStream } from "../bytestream.js";
+import { TeamMember } from "./TeamMember.js";
+import { Long } from "../Long.js";
+import { ByteStream } from "../misc/ByteStream.js";
+import { zlib } from "src/utility/zlib.js";
+import { readMapFile } from "src/mapmaker.js";
+import { stringToUtf8Array, utf8ArrayToString } from "src/util.js";
+import { Logger } from "src/utility/Logger.js";
+
+type Team = {
+  locationID: number | Long;
+  disabledBots: any[];
+}
+
+let team: Team = {
+  locationID: 0,
+  disabledBots: []
+}
 
 export class TeamEntry {
   id: Long;
   type = 0;
-  locationID = 0;
+  locationID: number | Long = 0;
   teamMembers: TeamMember[] = [];
-  constructor(id: Long, type: number, locationID: number) {
+
+  constructor(id: Long, type: number, locationID: number | Long, changedSlot: any[]) {
     this.id = id;
     this.type = type;
-    this.locationID = locationID;
+    if (locationID !== -1) {
+      team.locationID = locationID
+      this.locationID = locationID;
+    } else {
+      this.locationID = team.locationID
+    }
+
+    if (changedSlot.length === 2) {
+      let found = false
+      for (let i = 0; i < team.disabledBots.length; i++) {
+        if (changedSlot[0] === team.disabledBots[i]) {
+          found = true
+          if (!changedSlot[1])
+            team.disabledBots.splice(i, 1)
+          break
+        }
+      }
+      if (!found && changedSlot[1])
+        team.disabledBots.push(changedSlot[0])
+    }
+    Logger.verbose("Bots", changedSlot.length, team.disabledBots)
   }
 
   encode(stream: ByteStream): ByteStream {
@@ -21,18 +56,41 @@ export class TeamEntry {
     stream.writeVInt(0);
     stream.writeBoolean(false);
     stream.writeBoolean(false);
-    for (let i = 0; i < 3; i++) {
-      stream.writeVInt(0);
-    }
-    stream.writeDataReference(15, this.locationID);
+stream.writeVInt(0);
+stream.writeVInt(0);
+stream.writeVInt(0);
+    if (typeof(this.locationID) === "number")
+      stream.writeDataReference(15, this.locationID);
+    else
+      stream.writeDataReference(0, 1)
     stream.writeBoolean(false); // battle player map
+    if (typeof(this.locationID) !== "number") {
+      stream.writeLong(0, 1)
+      stream.writeString("test")
+      stream.writeVInt(0)
+      stream.writeDataReference(0, 1)
+      stream.writeDataReference(0, 1)
+      stream.writeBytes([0x00], 1)
+      stream.writeLong(0, 1)
+
+      let map = readMapFile("0-1.txt")
+      if (map !== null)
+        stream.writeString(utf8ArrayToString(zlib.compress(map.map)))
+      stream.writeVInt(0)
+      
+      stream.writeVInt(1)
+      stream.writeLong(0, 1)
+    }
     stream.writeVInt(this.teamMembers.length);
     stream = this.teamMembers.reduce((prev, x) => {
       return x.encode(prev);
     }, stream);
     stream.writeVInt(0); // invites
     stream.writeVInt(0); // join requests
-    stream.writeVInt(0); // disabled bots
+    stream.writeVInt(team.disabledBots.length); // disabled bots
+    for (let i = 0; i < team.disabledBots.length; i++) {
+      stream.writeVInt(team.disabledBots[i])
+    }
     stream.writeBoolean(true); // enable chat
     stream.writeBoolean(false); // accessory
     stream.writeBoolean(false); // gears

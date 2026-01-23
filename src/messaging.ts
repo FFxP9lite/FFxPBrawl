@@ -31,6 +31,7 @@ import { TeamLeftMessage } from "./packets/server/teams/teamleftmessage";
 import { TeamSetLocationMessage } from "./packets/client/teams/TeamSetLocationMessage";
 import { TeamSetMemberReadyMessage } from "./packets/client/teams/TeamSetMemberReadyMessage";
 import { TeamSetPlayerMapMessage } from "./packets/client/teams/TeamSetPlayerMapMessage";
+import { TeamBotSlotDisableMessage } from "./packets/client/teams/TeamBotSlotDisableMessage";
 
 export class Messaging {
   static sendOfflineMessage(id: number, payload: number[]): NativePointer {
@@ -169,6 +170,9 @@ export class Messaging {
         TeamSetLocationMessage.execute(TeamSetLocationMessage.decode(stream))
         break
       }
+      case 14373: {
+        TeamBotSlotDisableMessage.execute(TeamBotSlotDisableMessage.decode(stream))
+        break
       }
     }
   }

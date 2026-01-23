@@ -39,9 +39,10 @@ export class TeamMember {
     stream.writeVInt(0);
     stream.writeVInt(0);
     stream = this.playerDisplayData.encode(stream);
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) {
       stream.writeVInt(0); // gears, starpower, gadget and hypercharge respectfully
     }
+    stream.writeVInt(0);
     stream.writeVInt(0);
     return stream;
   }
