@@ -9,8 +9,6 @@ export class TeamBotSlotDisableMessage {
         let botIdx = stream.readInt()
         let status = stream.readBoolean()
 
-        console.log(botIdx, status)
-
         return [botIdx, status]
     }
 

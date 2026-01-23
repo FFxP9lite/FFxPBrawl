@@ -22,7 +22,7 @@ export class TeamEntry {
   locationID: number | Long = 0;
   teamMembers: TeamMember[] = [];
 
-  constructor(id: Long, type: number, locationID: number | Long, changedSlot: any[]) {
+  constructor(id: Long, type: number, locationID: number | Long, changedSlot: any[], init = false) {
     this.id = id;
     this.type = type;
     if (locationID !== -1) {
@@ -32,7 +32,9 @@ export class TeamEntry {
       this.locationID = team.locationID
     }
 
-    if (changedSlot.length === 2) {
+    if (init) {
+      team.disabledBots = []
+    } else if (changedSlot.length === 2) {
       let found = false
       for (let i = 0; i < team.disabledBots.length; i++) {
         if (changedSlot[0] === team.disabledBots[i]) {
@@ -45,7 +47,6 @@ export class TeamEntry {
       if (!found && changedSlot[1])
         team.disabledBots.push(changedSlot[0])
     }
-    Logger.verbose("Bots", changedSlot.length, team.disabledBots)
   }
 
   encode(stream: ByteStream): ByteStream {
@@ -56,9 +57,9 @@ export class TeamEntry {
     stream.writeVInt(0);
     stream.writeBoolean(false);
     stream.writeBoolean(false);
-stream.writeVInt(0);
-stream.writeVInt(0);
-stream.writeVInt(0);
+    stream.writeVInt(0);
+    stream.writeVInt(0);
+    stream.writeVInt(0);
     if (typeof(this.locationID) === "number")
       stream.writeDataReference(15, this.locationID);
     else
