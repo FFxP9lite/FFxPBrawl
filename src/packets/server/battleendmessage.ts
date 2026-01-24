@@ -23,7 +23,7 @@ export class BattleEndMessage {
     //    : (data.heroes.length === 10 ? 2 : 2));
     let game, onScreenCount;
     if (data.heroes.length === 6 || data.heroes.length === 4         // 3v3, 2v2
-      || (data.heroes.length === 10 && data.heroes[4].team === 1)) { // 5v5
+      || (data.heroes.length === 10 && data.heroes[4].team <= 1)) { // 5v5
       game = 1
       onScreenCount = data.heroes.length
     } else if (data.heroes.length === 10 && data.heroes[1].team === 1) {
