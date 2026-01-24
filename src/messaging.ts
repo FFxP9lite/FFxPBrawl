@@ -143,6 +143,9 @@ export class Messaging {
         }
         break
       }
+      case 14355: {
+        TeamSetMemberReadyMessage.execute(TeamCreateMessage.decode(stream))
+        break
       }
       case 14353: { // TeamLeaveMessage
         Messaging.sendOfflineMessage(24125, TeamLeftMessage.encode())
@@ -150,6 +153,10 @@ export class Messaging {
       }
       case 14363: {
         TeamSetLocationMessage.execute(TeamSetLocationMessage.decode(stream))
+        break
+      }
+      case 12110: {
+        // TeamSetPlayerMapMessage.execute(TeamSetPlayerMapMessage.decode(stream))
         break
       }
       case 14373: {

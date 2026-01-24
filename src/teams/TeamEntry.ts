@@ -60,11 +60,15 @@ export class TeamEntry {
     stream.writeVInt(0);
     stream.writeVInt(0);
     stream.writeVInt(0);
-    stream.writeDataReference(15, this.locationID);
+    if (this.locationID < 1000000)
+      stream.writeDataReference(15, this.locationID);
+    else
+      stream.writeDataReference(0, this.locationID - 1000000)
 
 
-    stream.writeBoolean(false); // battle player map
-    /*if (battlePlayerMap) {
+    let battlePlayerMap = this.locationID >= 1000000
+    stream.writeBoolean(battlePlayerMap); // battle player map
+    if (battlePlayerMap) {
       stream.writeLong(0, 1)
       stream.writeString("test")
       stream.writeVInt(0)
@@ -80,7 +84,7 @@ export class TeamEntry {
       
       stream.writeVInt(1)
       stream.writeLong(0, 1)
-    }*/
+    }
 
     stream.writeVInt(this.teamMembers.length);
     stream = this.teamMembers.reduce((prev, x) => {
