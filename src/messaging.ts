@@ -78,9 +78,6 @@ export class Messaging {
       case 10100: {
         Messaging.sendOfflineMessage(20104, LoginOkMessage.encode());
         Messaging.sendOfflineMessage(24101, OwnHomeDataMessage.encode());
-        if (config.teamExperiment) {
-          TeamManager.createTeam();
-        }
         break;
       }
       // GoHomeFromOfflinePracticeMesage
@@ -92,9 +89,6 @@ export class Messaging {
           writeConfig(config);
         }
         Messaging.sendOfflineMessage(24101, OwnHomeDataMessage.encode());
-        if (config.teamExperiment) {
-          TeamManager.createTeam();
-        }
         break;
       }
       // AskForBattleEndMessage
@@ -154,13 +148,11 @@ export class Messaging {
         break;
       }
       case 12541: {
-        TeamManager.createTeam()
+        if (config.teamExperiment) {
+          TeamCreateMessage.execute(TeamCreateMessage.decode(stream));
+        }
         break
       }
-      case 14350: {
-        Logger.verbose('"Unused" TeamCreateMessage is used')
-        TeamCreateMessage.execute(TeamCreateMessage.decode(stream));
-        break;
       }
       case 14353: { // TeamLeaveMessage
         Messaging.sendOfflineMessage(24125, TeamLeftMessage.encode())
