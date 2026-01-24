@@ -112,7 +112,12 @@ export function readMapFile(fileName: string): PlayerMapFile | null {
     }
 
     fs.close(fd);
-    return JSON.parse(chunks.join(""));
+    try {
+        return JSON.parse(chunks.join(""));
+    } catch (e: any) {
+        Logger.error(fileName, "is malformed or corrupted\n", e.stack)
+        return null
+    }
 }
 
 function readDirentName(dirent: NativePointer): string {

@@ -20,7 +20,10 @@ export class PlayerMapsMessage {
 
       if (mapObj !== null) {
         if (mapObj.map !== "") {
-          mapByteArray.push(222, 2, 0, 0) // magic numbers it changes in gmv (idk about theme; this is for gemgrab)
+          if (mapObj.gmv === 6 || mapObj.gmv === 9)
+            mapByteArray.push(84, 14, 0, 0) // SD (solo & duo)
+          else
+            mapByteArray.push(222, 2, 0, 0)
 
           const compressed = zlib.compress(mapObj.map)
           for (let i = 0; i < compressed.length; i++) {
@@ -32,7 +35,7 @@ export class PlayerMapsMessage {
         map = new PlayerMap(mapObj.name, mapObj.gmv, mapObj.theme, [0, i + 1], mapByteArray);
       } else {
         Logger.error("Some weird crash case probably occured, falling back to default")
-        map = new PlayerMap("Error", 0, 0, [0, i + 1], [])
+        map = new PlayerMap("Failed to load", 0, 0, [0, i + 1], [])
       }
 
       // map.avatarname ? 

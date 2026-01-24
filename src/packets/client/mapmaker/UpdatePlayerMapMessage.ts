@@ -21,8 +21,14 @@ export class UpdatePlayerMapMessage {
     const input = new Uint8Array(compressedMapByteArray.splice(4));
     Logger.verbose("Extra bytes:", compressedMapByteArray)
 
-    const text = zlib.decompress(input)
+    let text = zlib.decompress(input)
     Logger.verbose(`Updating map ${id.high}, ${id.low}\n` + text);
+
+    let modifiers = text.match(/M (\d+ ?)+\n/)
+    if (modifiers !== null) { // TODO
+      Logger.verbose("Dropping", modifiers[0])
+      text = text.replace(modifiers[0], "")
+    }
 
     writeMapToFile([id.high, id.low], "", -1, -1, text, true)
 
