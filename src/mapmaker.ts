@@ -120,44 +120,22 @@ export function readMapFile(fileName: string): PlayerMapFile | null {
     }
 }
 
-function readDirentName(dirent: NativePointer): string {
-    // struct dirent {
-    //   ino_t d_ino;        // 8 bytes
-    //   off_t d_off;        // 8 bytes
-    //   unsigned short d_reclen; // 2 bytes
-    //   unsigned char d_type;   // 1 byte
-    //   char d_name[];     // starts at offset 19 -> aligned to 24
-    // }
-
-    const NAME_OFFSET = 24;
-    return dirent.add(NAME_OFFSET).readUtf8String()!;
-}
-
 export function getMapCount(): number {
-    const pkg = getPackageName();
-    if (!pkg) return 0;
-
-    const path = `/storage/emulated/0/Android/media/${pkg}/mapmaker`;
-    const dir = fs.opendir(Memory.allocUtf8String(path));
-
-    if (dir.isNull()) {
-        Logger.error("Failed to open map dir");
-        return 0;
-    }
+    let list = getMapList()
 
     let count = 0;
 
-    while (true) {
-        const ent = fs.readdir(dir);
-        if (ent.isNull()) break;
-
-        const name = readDirentName(ent);
-        if (name === "." || name === "..") continue;
-
-        count++;
+    for (let i = 0; i < list.length; i++) {
+        let mapName = list[i]
+        let mapMatch = mapName.match(/\d+-(\d+)\.txt/), mapIdLow
+        if (mapMatch !== null && mapMatch.hasOwnProperty(1)) {
+            mapIdLow = parseInt(mapMatch[1])
+        } else {
+            continue
+        }
+        count = Math.max(count, mapIdLow)
     }
 
-    fs.closedir(dir);
     return count;
 }
 
@@ -169,4 +147,33 @@ export function deleteMap(id: number[]): boolean {
 
     const res = fs.unlink(Memory.allocUtf8String(path));
     return res === 0;
+}
+
+export function getMapList(): string[] {
+    const result: string[] = [];
+    const path = `/storage/emulated/0/Android/media/${getPackageName()}/mapmaker`
+    const pathPtr = Memory.allocUtf8String(path);
+
+    const dir = fs.opendir(pathPtr);
+    if (dir.isNull()) {
+        Logger.error("opendir failed for", path);
+        return []
+    }
+
+    try {
+        while (true) {
+            const dirent = fs.readdir(dir);
+            if (dirent.isNull()) break;
+
+            const name = fs.readDirentName(dirent);
+
+            if (name === "." || name === "..") continue;
+
+            result.push(name);
+        }
+    } finally {
+        fs.closedir(dir);
+    }
+
+    return result;
 }

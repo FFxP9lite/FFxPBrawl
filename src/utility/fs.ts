@@ -9,4 +9,8 @@ export class fs {
     static closedir = new NativeFunction(Module.getExportByName(null, "closedir"), "int", ["pointer"]);
     static unlink = new NativeFunction(Module.getExportByName(null, "unlink"), "int", ["pointer"]);
     static rename = new NativeFunction(Module.getExportByName(null, "rename"), "int", ["pointer", "pointer"]);
+
+    static readDirentName(dirent: NativePointer): string {
+        return dirent.add(0x13).readCString()!;
+    }
 }
