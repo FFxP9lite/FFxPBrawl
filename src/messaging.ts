@@ -27,7 +27,7 @@ import { AskForBattleEndMessage } from "./packets/client/AskForBattleEndMessage"
 import { SetCountryMessage } from "./packets/client/SetCountryMessage";
 import { UpdatePlayerMapMessage } from "./packets/client/mapmaker/UpdatePlayerMapMessage";
 import { ChangePlayerMapNameMessage } from "./packets/client/mapmaker/ChangePlayerMapNameMessage";
-import { TeamLeftMessage } from "./packets/server/teams/teamleftmessage";
+import { TeamLeftMessage } from "./packets/server/teams/TeamLeftMessage";
 import { TeamSetLocationMessage } from "./packets/client/teams/TeamSetLocationMessage";
 import { TeamSetMemberReadyMessage } from "./packets/client/teams/TeamSetMemberReadyMessage";
 import { TeamSetPlayerMapMessage } from "./packets/client/teams/TeamSetPlayerMapMessage";
