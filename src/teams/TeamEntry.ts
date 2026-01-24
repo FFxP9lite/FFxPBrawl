@@ -7,7 +7,7 @@ import { stringToUtf8Array, utf8ArrayToString } from "src/util.js";
 import { Logger } from "src/utility/Logger.js";
 
 type Team = {
-  locationID: number | Long;
+  locationID: number;
   disabledBots: any[];
 }
 
@@ -19,10 +19,10 @@ let team: Team = {
 export class TeamEntry {
   id: Long;
   type = 0;
-  locationID: number | Long = 0;
+  locationID: number = 0;
   teamMembers: TeamMember[] = [];
 
-  constructor(id: Long, type: number, locationID: number | Long, changedSlot: any[], init = false) {
+  constructor(id: Long, type: number, locationID: number, changedSlot: any[], init = false) {
     this.id = id;
     this.type = type;
     if (locationID !== -1) {
@@ -60,12 +60,11 @@ export class TeamEntry {
     stream.writeVInt(0);
     stream.writeVInt(0);
     stream.writeVInt(0);
-    if (typeof(this.locationID) === "number")
-      stream.writeDataReference(15, this.locationID);
-    else
-      stream.writeDataReference(0, 1)
+    stream.writeDataReference(15, this.locationID);
+
+
     stream.writeBoolean(false); // battle player map
-    if (typeof(this.locationID) !== "number") {
+    /*if (battlePlayerMap) {
       stream.writeLong(0, 1)
       stream.writeString("test")
       stream.writeVInt(0)
@@ -81,7 +80,8 @@ export class TeamEntry {
       
       stream.writeVInt(1)
       stream.writeLong(0, 1)
-    }
+    }*/
+
     stream.writeVInt(this.teamMembers.length);
     stream = this.teamMembers.reduce((prev, x) => {
       return x.encode(prev);
@@ -95,7 +95,7 @@ export class TeamEntry {
     stream.writeBoolean(true); // enable chat
     stream.writeBoolean(false); // accessory
     stream.writeBoolean(false); // gears
-    stream.writeBoolean(false); // mods
+    stream.writeVInt(0); // mods
     return stream;
   }
 }
