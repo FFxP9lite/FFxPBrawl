@@ -234,4 +234,36 @@ export function installHooks() {
       },
     });
   }
+
+  // Config battle options
+
+  if (config.infiniteAmmo) { // TODO: Probably better to stop ammo from being depleted
+    Interceptor.replace(base.add(Offsets.GetRechargeTime), new NativeCallback(
+      function() {
+        return 1
+      }, "int64", ["int64"]
+    ))
+  }
+  if (false) { // GetMaxCharge
+               // TODO: Not in config
+    Interceptor.replace(base.add(0x819CD4), new NativeCallback(
+      function() {
+        return 1
+      }, "int64", ["int64"]
+    ))
+  }
+  if (false) { // GetMsBetweenAttacks and GetActiveTime
+               // Allows for super fast firing, but makes
+               // multi shooters (colt, 8bit) useless
+    Interceptor.replace(base.add(0x819CFC), new NativeCallback(
+      function() {
+        return 1
+      }, "int64", ["int64"]
+    ))
+    Interceptor.replace(base.add(0x819AF0), new NativeCallback(
+      function() {
+        return 1
+      }, "int64", ["int64"]
+    ))
+  }
 }

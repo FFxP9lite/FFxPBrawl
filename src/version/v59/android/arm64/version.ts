@@ -99,5 +99,7 @@ export const version = {
     ButtonPressed: "0x97fff8",
     ShowFloaterTextAtDefaultPos: "0x46fddc",
     GUIInstance: "0xf2e968",
+
+    GetRechargeTime: "0x819CC4"
   },
 };
