@@ -100,6 +100,15 @@ export const version = {
     ShowFloaterTextAtDefaultPos: "0x46fddc",
     GUIInstance: "0xf2e968",
 
-    GetRechargeTime: "0x819CC4"
+    // LogicCharacterServer::tick 0x833524
+    GetRechargeTime: "0x819CC4",
+    GetMaxCharge: "0x819CD4",
+    GetMsBetweenAttacks: "0x819CFC",
+    GetActiveTime: "0x819AF0",
+    GetCastingTime: "0x819B18",
+    CanMoveAtSameTime: "0x819E2C",
+    TickAI: "0x83C408",
+    GetUltiChargeMul: "0x7CCBC0",
+    ChargeUlti: "0x8FC8DC", // LogicPlayer
   },
 };

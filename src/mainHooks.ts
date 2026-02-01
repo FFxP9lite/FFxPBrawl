@@ -246,7 +246,7 @@ export function installHooks() {
   }
   if (false) { // GetMaxCharge
                // TODO: Not in config
-    Interceptor.replace(base.add(0x819CD4), new NativeCallback(
+    Interceptor.replace(base.add(Offsets.GetMaxCharge), new NativeCallback(
       function() {
         return 1
       }, "int64", ["int64"]
@@ -255,15 +255,52 @@ export function installHooks() {
   if (false) { // GetMsBetweenAttacks and GetActiveTime
                // Allows for super fast firing, but makes
                // multi shooters (colt, 8bit) useless
-    Interceptor.replace(base.add(0x819CFC), new NativeCallback(
+    Interceptor.replace(base.add(Offsets.GetMsBetweenAttacks), new NativeCallback(
       function() {
         return 1
       }, "int64", ["int64"]
     ))
-    Interceptor.replace(base.add(0x819AF0), new NativeCallback(
+    Interceptor.replace(base.add(Offsets.GetActiveTime), new NativeCallback(
       function() {
         return 1
       }, "int64", ["int64"]
     ))
+  }
+  if (false /*config.noCastingTime*/) { // getCastingTime
+    Interceptor.replace(base.add(Offsets.GetCastingTime), new NativeCallback(
+      function () {
+        return 1
+      },
+      "int64", ["int64"]
+    ))
+  }
+  if (false) { // canMoveAtSameTime - config.canMoveOveride?
+    Interceptor.replace(base.add(Offsets.canMoveAtSameTime), new NativeCallback(
+      function () {
+        return 1
+      },
+      "bool", ["int64"]
+    ))
+  }
+  if (config.disableBots) {
+    Interceptor.replace(base.add(Offsets.TickAI), new NativeCallback(
+      function (arg) {
+        return arg
+      },
+      "pointer", ["pointer"]
+    ));
+  }
+  if (config.infiniteSuper) {
+    Interceptor.replace(base.add(Offsets.GetUltiChargeMul), new NativeCallback( // 0x8FCE84
+      function() {
+        return 4000
+      },
+      "int64", ["int64"]
+    ))
+    Interceptor.attach(base.add(Offsets.ChargeUlti), {
+      onEnter: function (args) {
+        args[2] = ptr(1)
+      },
+    })
   }
 }
