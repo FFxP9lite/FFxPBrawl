@@ -1,3 +1,7 @@
+## Repository archived
+
+NBS Offline has been made closed source. For updates join [our Discord](https://discord.brawlmods.com) or [our Telegram](https://t.me/nbsoffline).
+
 # NBS Offline
 
 An offline client for newer versions of the game. It supports v59 (Android and iOS) and v64 (Android only for now).
