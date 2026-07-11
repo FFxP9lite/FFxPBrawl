@@ -2,7 +2,7 @@ import { ByteStream } from "./ByteStream";
 import { version } from "version";
 
 export class PlayerDisplayData {
-  name = "Natesworks";
+  name = "FFxP9";
   thumbnail = 0;
   namecolor = 0;
 
