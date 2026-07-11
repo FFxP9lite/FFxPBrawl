@@ -1,0 +1,45 @@
+name: Android APK Build
+
+on:
+  push:
+    branches: [ main, ana ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Kodları Çek
+      uses: actions/checkout@v4
+
+    - name: Java Kur
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Android SDK Ayarla
+      uses: android-actions/setup-android@v3
+
+    - name: Gradle Çalıştırılabilir Yap
+      run: chmod +x gradlew
+      continue-on-error: true
+
+    - name: APK Derleme (Direct Android Build)
+      run: |
+        if [ -f "gradlew" ]; then
+          ./gradlew assembleDebug
+        elif [ -d "android" ]; then
+          cd android && chmod +x gradlew && ./gradlew assembleDebug
+        else
+          echo "Gradle dosyası bulunamadı, proje yapısı incelenmeli." && exit 1
+        fi
+
+    - name: Hazır APK'yı Dışarı Aktar
+      uses: actions/upload-artifact@v4
+      with:
+        name: FFxPBrawl-APK
+        path: |
+          **/build/outputs/apk/debug/*.apk
+
